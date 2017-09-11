@@ -1,0 +1,61 @@
+<div class="container top-30">
+
+  <div class="row animated fadeIn fast" *ngIf="artista">
+    <div class="col-md-3 text-center">
+      <img [src]="artista.images | sinfoto "
+           alt="" class="img-thumbnail rounded-circle">
+    </div>
+
+    <div class="col-md-9">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h4 class="display-3">{{ artista.name }} </h4><small> Polularidad {{ artista.popularity }}</small>
+          <p class="lead">{{ artista.genres | slice:0:5 }}</p>
+        </div>
+      </div>
+      <p class="lead align-le float-right">
+        <a class="btn btn-success" [href]="artista.external_urls?.spotify" role="button">Ver pagina</a>
+        <a class="btn btn-outline-success" [routerLink]="['/buscar']" role="button">Volver a la búsqueda</a>
+      </p>
+    </div>
+  </div>
+
+
+  <div class="row animated fadeIn fast" *ngIf="pistas">
+    <h4>Top tracks</h4>
+    <hr>
+    <table class="table table-striped table-inverse">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Foto</th>
+          <th>Canción</th>
+          <th>Popularidad</th>
+          <th>Preview</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let track of pistas; let i= index">
+        <td>{{ i + 1}}</td>
+        <td>
+          <img class="img-album" [src]="track.album?.images | sinfoto" alt="">
+        </td>
+        <td>{{ track.name }}</td>
+        <td>{{ track.popularity }}</td>
+        <!--<td>-->
+          <!--<audio controls>-->
+            <!--<source [src]="track.preview_url">-->
+            <!--Navegador obsoleto-->
+          <!--</audio>-->
+        <!--</td>-->
+        <td>
+          <iframe [src]="track.uri | domseguro:'https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+</div>
